@@ -5,7 +5,7 @@ import './Home.css';
 // import { createRoot } from 'react-dom/client';
 
 import TerminalComponent from '../TerminalComponent/TerminalComponent';
-
+BACKEND_URL = "http://localhost:3001"
 function Home() {
   const [pulledImages, setPulledImages] = useState('');
   const [cpullos_image, setcpullos_image] = useState('');
@@ -22,7 +22,8 @@ function Home() {
   const [connectContainerId, setConnectContainerId] = useState(null);
 
   const allpulledimages = () => {
-    fetch('http://localhost:3001/allpulledimages')
+    // fetch('http://localhost:3001/allpulledimages')
+      fetch(`${process.env.BACKEND_URL}/allpulledimages`)
       .then((response) => response.text())
       .then((data) => {
         setPulledImages(data);
@@ -40,7 +41,7 @@ function Home() {
   };
 
   const cpullos = () => {
-    fetch(`http://localhost:3001/cpullos?cpullos=${cpullos_image}`)
+    fetch(`${process.env.BACKEND_URL}/cpullos?cpullos=${cpullos_image}`)
       .then((response) => response.text())
       .then((data) => {
         setImageData(data);
@@ -55,14 +56,14 @@ function Home() {
   };
 
   const run = () => {
-    fetch(`http://localhost:3001/run?c_name=${c_name}&c_image=${c_image}`)
+    fetch(`${process.env.BACKEND_URL}/run?c_name=${c_name}&c_image=${c_image}`)
       .then(response => response.text())
       .then(data => setContainerId(data))
       .catch(err => console.error('Error running container:', err));
   };
 
   const cps = () => {
-    fetch(`http://localhost:3001/ps`)
+    fetch(`${process.env.BACKEND_URL}/ps`)
       .then((response) => response.json()) // Ensure the response is JSON
       .then((data) => {
         console.log('Fetched containers:', data); // Debug log
@@ -74,7 +75,7 @@ function Home() {
   };
 
   const del = () => {
-    fetch(`http://localhost:3001/del?dcontainer=${dcontainer}`)
+    fetch(`${process.env.BACKEND_URL}/del?dcontainer=${dcontainer}`)
       .then((response) => response.text())
       .then((data) => {
         setdeleteContainer(data);
@@ -85,7 +86,7 @@ function Home() {
   };
 
   const deleteall = () => {
-    fetch(`http://localhost:3001/deleteall`)
+    fetch(`${process.env.BACKEND_URL}/deleteall`)
       .then((response) => response.text())
       .then((data) => {
         setalldeleteContainer(data);
@@ -97,7 +98,7 @@ function Home() {
 
   const sendCommand = () => {
     const command = document.getElementById('eterminal-input').value;
-    fetch(`http://localhost:3001/comman?cmd=${command}`)
+    fetch(`${process.env.BACKEND_URL}/comman?cmd=${command}`)
       .then(response => response.text())
       .then(data => setCommand(data))
       .catch(err => console.error('Error executing command:', err));
