@@ -5,7 +5,7 @@ import './Home.css';
 // import { createRoot } from 'react-dom/client';
 
 import TerminalComponent from '../TerminalComponent/TerminalComponent';
-BACKEND_URL = "http://localhost:3001"
+
 function Home() {
   const [pulledImages, setPulledImages] = useState('');
   const [cpullos_image, setcpullos_image] = useState('');
