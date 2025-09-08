@@ -102,6 +102,9 @@ wss.on('connection', (ws) => {
     console.error('WebSocket error:', error);
   });
 });
+app.get('/', (req, res) => {
+  res.send('Hello World')
+})
 
 server.listen(3001, () => {
   console.log('Server running on port 3001');
