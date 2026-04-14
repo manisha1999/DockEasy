@@ -1,0 +1,12 @@
+{
+  "name": "dockeasy",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "concurrently \"npm start --prefix backend\" \"npm start --prefix dockease\"",
+    "install:all": "npm install --prefix backend && npm install --prefix dockease"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
