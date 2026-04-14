@@ -8,10 +8,10 @@ import 'xterm/css/xterm.css';
 const TerminalComponent = () => {
   const { containerId } = useParams();
   const { instance, ref } = useXTerm();
-  const fitAddon = new FitAddon();
 
   useEffect(() => {
     if (instance) {
+      const fitAddon = new FitAddon();
       instance.loadAddon(fitAddon);
       fitAddon.fit();
 
@@ -27,7 +27,7 @@ const TerminalComponent = () => {
 
       socket.onmessage = (event) => {
         console.log('Received:', event.data);
-      
+
         try {
           const message = JSON.parse(event.data);
           if (message.output) {
@@ -59,11 +59,12 @@ const TerminalComponent = () => {
       instance.writeln('Welcome to the Docker container terminal!');
       instance.writeln(`Connected to container: ${containerId}`);
 
-      window.addEventListener('resize', () => fitAddon.fit());
+      const handleResize = () => fitAddon.fit();
+      window.addEventListener('resize', handleResize);
 
       return () => {
         socket.close();
-        window.removeEventListener('resize', () => fitAddon.fit());
+        window.removeEventListener('resize', handleResize);
       };
     }
   }, [instance, containerId]);
